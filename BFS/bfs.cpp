@@ -1,5 +1,5 @@
 #include <iostream>
-#include <stack>
+#include <queue>
 #define V 6
 using namespace std;
 
@@ -27,35 +27,38 @@ void display(int arr[][V])
         cout << endl;
     }
 }
-void dfs(int arr[V][V])
+
+void bfs(int arr[][V])
 {
-    bool visited[V] = {false};
-    stack<int> st;
-    for (int i = 0; i < V; i++)
+    bool visited[V]={false};
+    queue<int>q;
+
+    for(int i=0;i<V;i++)
     {
-        if (!visited[i])
+        if(!visited[i])
         {
-            st.push(i);
-            while (!st.empty())
+            q.push(i);
+            visited[i]=true;
+            while(!q.empty())
             {
-                int vertex = st.top();
-                st.pop();
-                if (!visited[vertex])
+                int vertex=q.front();
+                q.pop();
+                cout<<vertex<<" ";
+                for(int j=0;j<V;j++)
                 {
-                    visited[vertex] = true;
-                    cout << vertex <<" ";
-                    for (int j = V - 1; j >= 0; j--)
+                    if(arr[vertex][j]==1 && !visited[j])
                     {
-                        if (arr[vertex][j] == 1 && !visited[j])
-                        {
-                            st.push(j);
-                        }
+                        q.push(j);
+                        visited[j]=true;
                     }
+
                 }
             }
         }
+
     }
     cout<<endl;
+
 }
 
 int main()
@@ -70,5 +73,5 @@ int main()
     addEdge(adjMatrix, 4, 3);
     display(adjMatrix);
     cout<<"DFS"<<endl;
-    dfs(adjMatrix);
+    bfs(adjMatrix);
 }
