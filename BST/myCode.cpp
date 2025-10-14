@@ -18,6 +18,24 @@ node *createNode(int x)
     return temp;
 }
 
+node *searchNthNode(node *root,int key)
+{
+    if(root==NULL || root->data==key)
+    {
+        return root;
+    }
+    else if (root->data<key)
+    {
+        return searchNthNode(root->right,key);
+    }
+    else if (root->data>key)
+    {
+        return searchNthNode(root->left,key);
+    }
+    
+    
+}
+
 node *insertNode(node *root, int key)
 {
     if (root == NULL)
@@ -74,7 +92,7 @@ int main()
     insertNode(main_root, 2);
     insertNode(main_root, 5);
     insertNode(main_root, 8);
-    insertNode(main_root, 3);
+    insertNode(main_root, 3); 
 
     cout << "inorder traversal: "; 
     inorder(main_root);
@@ -85,4 +103,17 @@ int main()
 
     cout<<"post order traversal: ";
     postorder(main_root);
+
+    int key=5;
+
+    node*result= searchNthNode(main_root,key);
+
+    if(result !=NULL)
+    {
+        cout<<"found"<<endl;
+    }
+    else
+    {
+        cout<<"not find"<<endl;
+    }
 }
