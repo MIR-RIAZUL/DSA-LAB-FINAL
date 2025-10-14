@@ -1,45 +1,31 @@
 #include <iostream>
-#include <stack>
+#include <queue>
 using namespace std;
 
 int main() {
-    int n;
-    cin >> n;
+    string str;
+    cin >> str;
+    queue<char> q;
 
-    stack<int> inputStack, tempStack;
+    // Put all characters in the queue
+    for (char ch : str) q.push(ch);
 
-    // Read input numbers
-    for (int i = 0; i < n; i++) {
-        int x;
-        cin >> x;
-        inputStack.push(x);
-    }
+    bool palindrome = true;
+    int n = str.length();
 
-    // Sort using stacks
-    while (!inputStack.empty()) {
-        int x = inputStack.top();
-        inputStack.pop();
-
-        // Move elements back if they are greater than current x
-        while (!tempStack.empty() && tempStack.top() > x) {
-            inputStack.push(tempStack.top());
-            tempStack.pop();
+    // Check palindrome
+    for (int i = n - 1; i >= 0; i--) {
+        if (q.front() != str[i]) {
+            palindrome = false;
+            break;
         }
-
-        tempStack.push(x);
+        q.pop();
     }
 
-    // Output in ascending order
-    stack<int> outputStack;
-    while (!tempStack.empty()) {
-        outputStack.push(tempStack.top());
-        tempStack.pop();
-    }
-
-    while (!outputStack.empty()) {
-        cout << outputStack.top() << " ";
-        outputStack.pop();
-    }
+    if (palindrome)
+        cout << "Palindrome" << endl;
+    else
+        cout << "Not Palindrome" << endl;
 
     return 0;
 }
