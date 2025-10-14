@@ -24,7 +24,7 @@ int main()
         inputStack.pop();
 
        
-        while (!tempStack.empty() && tempStack.top() > x)
+        while (!tempStack.empty() && tempStack.top() < x)
         {
             inputStack.push(tempStack.top());
             tempStack.pop();
@@ -33,17 +33,13 @@ int main()
         tempStack.push(x);
     }
 
-    stack<int> output;
-    while (!tempStack.empty())
+
+    for(int i=0;i<n;i++)
     {
-        output.push(tempStack.top());
+        cout<<tempStack.top()<<" ";
         tempStack.pop();
     }
 
-    while (!output.empty())
-    {
-        cout << output.top() << " ";
-        output.pop();
-    }
+    
     return 0;
 }
