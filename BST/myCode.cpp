@@ -84,6 +84,58 @@ void postorder(node *root)
         cout<<root->data<<" ";
     }
 }
+
+node *maximumValue(node* root)
+{
+    while(root->right !=NULL)
+    {
+        root=root->right;
+    }
+    return root;
+}
+
+ node *deleteNode(node *root,int key)
+ {
+    if(root==NULL)
+    {
+        return root;
+    }
+    if(key>root->data)
+    {
+        root->right=deleteNode(root->right,key);
+    }
+    else if (key<root->data)
+    {
+        root->left=deleteNode(root->left,key);
+    }
+    else
+    {
+        if(root->left==NULL)
+        {
+            node* temp=root->right;
+            delete root;
+            return temp;
+
+        }
+        else if(root->right==NULL)
+        {
+            node *temp= root->left;
+            delete root;
+            return temp;
+        }
+        //if root has both node
+
+        node *temp;
+
+        temp= maximumValue(root->left);
+        root->data=temp->data;
+        root->left=deleteNode(root->left,temp->data);
+
+    }
+    return root;
+    
+ }
+
 int main()
 {
     main_root = insertNode(main_root, 6);
@@ -116,4 +168,7 @@ int main()
     {
         cout<<"not find"<<endl;
     }
+      main_root = deleteNode(main_root, 3);
+      cout<<"inorder:"<<endl;
+      inorder(main_root);
 }
