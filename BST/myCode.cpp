@@ -47,6 +47,25 @@ void inorder(node *root)
     }
 }
 
+void preorder(node* root)
+{
+    if(root !=NULL)
+    {
+    cout<<root->data<<" ";
+    preorder(root->left);
+    preorder(root->right);
+    }
+}
+
+void postorder(node *root)
+{
+    if(root !=NULL)
+    {
+        postorder(root->left);
+        postorder(root->right);
+        cout<<root->data<<" ";
+    }
+}
 int main()
 {
     main_root = insertNode(main_root, 6);
@@ -57,6 +76,13 @@ int main()
     insertNode(main_root, 8);
     insertNode(main_root, 3);
 
-    cout << "inorder traversal:";
+    cout << "inorder traversal: "; 
     inorder(main_root);
+    cout<<endl;
+    cout<<"preorder traversal: ";
+    preorder(main_root);
+    cout<<endl;
+
+    cout<<"post order traversal: ";
+    postorder(main_root);
 }
