@@ -38,7 +38,7 @@ node *searchNthNode(node *root,int key)
 
 node *insertNode(node *root, int key)
 {
-    if (root == NULL)
+    if (root == NULL) 
     {
         return createNode(key);
     }
