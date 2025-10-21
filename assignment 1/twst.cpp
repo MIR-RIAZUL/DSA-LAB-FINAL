@@ -1,43 +1,40 @@
 #include <iostream>
 #include <stack>
-#include <string>
 using namespace std;
 
-bool isPalindrome(string str) {
-    stack<char> s;
-    int n = str.length();
-    
-    // Push all characters onto the stack
-    for(int i = 0; i < n; i++) {
-        s.push(str[i]);
+bool isValid(string s) {
+    stack<char> st;
+
+    for (char ch : s) {
+        if (ch == '(' || ch == '{' || ch == '[') {
+            st.push(ch);
+        } 
+        else {
+            if (st.empty()) return false; // No opening bracket for this closing one
+
+            char top = st.top();
+            st.pop();
+
+            if ((ch == ')' && top != '(') ||
+                (ch == '}' && top != '{') ||
+                (ch == ']' && top != '[')) {
+                return false;
+            }
+        }
     }
 
-    // Pop characters to form reversed string
-    string rev = "";
-    while(!s.empty()) {
-        rev += s.top();
-        s.pop();
-    }
-
-    // Compare original and reversed
-    return str == rev;
+    return st.empty(); // All brackets matched
 }
 
 int main() {
-    int N;
-    cout << "Enter number of test cases: ";
-    cin >> N;
+    string s;
+    cout << "Enter a string of brackets: ";
+    cin >> s;
 
-    for(int i = 0; i < N; i++) {
-        string str;
-        cin >> str;
-
-        if(isPalindrome(str)) {
-            cout << str << " Yes" << endl;
-        } else {
-            cout << str << " No" << endl;
-        }
-    }
+    if (isValid(s))
+        cout << "true" << endl;
+    else
+        cout << "false" << endl;
 
     return 0;
 }

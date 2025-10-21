@@ -6,6 +6,7 @@ bool palindrome(string s)
 {
     stack<int>st;
     int n=s.length();
+    
 
     for(int i=0;i<n;i++)
     {
