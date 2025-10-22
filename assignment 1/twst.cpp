@@ -1,48 +1,43 @@
 #include <iostream>
+#include <queue>
+#include <string>
 using namespace std;
 
 int main() {
-    int N, T;
-    cin >> N >> T; // N = max size, T = number of operations
+    int N;
+    cin >> N;
+    cin.ignore(); // To ignore newline after integer input
 
-    int queue[N];
-    int front = 0, rear = 0, size = 0;
+    for (int i = 0; i < N; i++) {
+        string str;
+        getline(cin, str);
 
-    for (int i = 0; i < T; i++) {
-        int op;
-        cin >> op;
+        queue<char> q1, q2;
 
-        if (op == 1) { // Enqueue
-            if (size == N) {
-                cout << "Queue is full!" << endl;
-                continue;
-            }
-            int value;
-            cin >> value;
-            queue[rear] = value;
-            rear = (rear + 1) % N;
-            size++;
-        } 
-        else if (op == 2) { // Dequeue
-            if (size == 0) {
-                cout << "Queue is empty!" << endl;
-                continue;
-            }
-            front = (front + 1) % N;
-            size--;
+        // Enqueue all characters of the string into q1
+        for (char ch : str) {
+            q1.push(ch);
         }
 
-        // Print current state of queue
-        cout << "size=" << size << " items=";
-        if (size == 0) {
-            cout << "NULL";
-        } else {
-            int count = size;
-            int index = front;
-            for (int j = 0; j < count; j++) {
-                cout << queue[index] << " ";
-                index = (index + 1) % N;
+        // Reverse using another queue (q2)
+        while (!q1.empty()) {
+            char ch = q1.back(); // Get last element logic not possible directly
+            // So we transfer all except last to another temp queue
+            queue<char> temp;
+            while (q1.size() > 1) {
+                temp.push(q1.front());
+                q1.pop();
             }
+            char last = q1.front();
+            q1.pop();
+            q2.push(last);
+            q1 = temp; // Move temp back into q1
+        }
+
+        // Print reversed string
+        while (!q2.empty()) {
+            cout << q2.front();
+            q2.pop();
         }
         cout << endl;
     }

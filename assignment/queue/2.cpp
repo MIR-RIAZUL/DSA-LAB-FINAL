@@ -32,14 +32,7 @@ void reverseString(string str) {
         q2.pop();
     }
 
-    if(rev==str)
-    {
-        cout<<"palingdrome"<<endl;
-    }
-    else
-    {
-        cout<<"not"<<endl;
-    }
+    cout << "Reversed string: " << rev << endl;
 }
 
 int main() {
